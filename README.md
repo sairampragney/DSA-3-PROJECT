@@ -59,7 +59,7 @@ It is written to be picked up directly by a developer (or an AI coding agent) an
 ## 🏗️ Architecture at a Glance
 
 ```
-Client Layer  →  API Gateway  →  ┌─ Ingestion Service
+Client Layer  →  API Gateway  →   ┌─ Ingestion Service
                                   ├─ Matching / Scoring Service
                                   └─ Allocation / Optimization Service
                                           │

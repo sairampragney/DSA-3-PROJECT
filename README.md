@@ -9,9 +9,10 @@ is hand-built from first principles, no `java.util.*`-equivalent standard librar
 
 [![Status](https://img.shields.io/badge/status-documentation%20v1.0-blue)](#-status)
 [![Course](https://img.shields.io/badge/course-DSA--3%20(25CS2103E)-6f42c1)](#-dsa-3-module-mapping)
-[![University](https://img.shields.io/badge/KLBCH-Odd%20Sem%202026--27-orange)](#)
+[![University](https://img.shields.io/badge/KLBCH-Odd%20Sem%202026--27-orange)](ABSTRACT/README.md)
 [![Docs](https://img.shields.io/badge/docs-13%20sections-success)](#-documentation)
-[![License](https://img.shields.io/badge/license-Academic%20Project-lightgrey)](#)
+[![License](https://img.shields.io/badge/license-Academic%20Project-lightgrey)](LICENSE)
+[![Team](https://img.shields.io/badge/team-36%20%C2%B7%20Section%2010-informational)](ABSTRACT/README.md)
 
 </div>
 
@@ -31,6 +32,19 @@ The system takes millions of résumés and job postings and answers three hard q
 | 🧠 *What's the smallest set of hires that fully staffs a team?* | Classic NP-hard **set cover** — exact bitmask DP for small teams, greedy approximation at scale |
 
 It is written to be picked up directly by a developer (or an AI coding agent) and implemented module-by-module — see [Phasing](docs/13-phasing-roadmap.md).
+
+> 📄 Submitted for grading? Start with the official **[Project Abstract](ABSTRACT/README.md)** (team, roll numbers, guide, and the submitted abstract PDF).
+
+---
+
+## 👥 Team
+
+| Name | Roll Number |
+|---|---|
+| Tejaswin Amara | 2520090104 |
+| Sai Ram Pragnay Murikipudi | 2520090081 |
+
+**Team 36 · Section 10** · Guide: Miss. Chandusha Kanda, Assistant Professor, CSIT · KL Deemed to be University, Hyderabad
 
 ---
 
@@ -59,7 +73,7 @@ It is written to be picked up directly by a developer (or an AI coding agent) an
 ## 🏗️ Architecture at a Glance
 
 ```
-Client Layer  →  API Gateway  →   ┌─ Ingestion Service
+Client Layer  →  API Gateway  →  ┌─ Ingestion Service
                                   ├─ Matching / Scoring Service
                                   └─ Allocation / Optimization Service
                                           │
@@ -142,7 +156,11 @@ cd DSA-3-PROJECT-
 ```
 DSA-3-PROJECT-/
 ├── README.md                             ← you are here
+├── LICENSE                               ← academic-use license
 ├── FULL-DOCUMENTATION.md                 ← single-file version of everything below
+├── ABSTRACT/
+│   ├── README.md                         ← team, roll numbers, guide, summary
+│   └── DSA-3 Project Abstract.pdf        ← officially submitted abstract
 └── docs/
     ├── 01-system-overview.md
     ├── 02-data-model-and-normalization.md
@@ -163,6 +181,6 @@ DSA-3-PROJECT-/
 
 <div align="center">
 
-Built for **DSA-3 (25CS2103E)** · KLBCH · Odd Semester 2026-27
+Built by **Tejaswin Amara** & **Sai Ram Pragnay Murikipudi** (Team 36) for **DSA-3 (25CS2103E)** · KLBCH · Odd Semester 2026-27
 
 </div>

@@ -1,0 +1,31 @@
+name: Docs Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  full-documentation-sync:
+    name: FULL-DOCUMENTATION.md is in sync with docs/
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Check FULL-DOCUMENTATION.md matches docs/
+        run: python3 scripts/build_full_documentation.py --check
+
+  markdown-link-check:
+    name: No broken links in documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check internal & external links
+        uses: gaurav-nelson/github-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+          config-file: '.github/workflows/mlc-config.json'

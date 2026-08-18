@@ -66,7 +66,7 @@ It is written to be picked up directly by a developer (or an AI coding agent) an
 | 12 | [Documentation Artifacts](docs/12-documentation-artifacts.md) | API reference, data dictionary, glossary |
 | 13 | [Phasing: MVP → Enhancements](docs/13-phasing-roadmap.md) | Timeline, deliverables per phase |
 
-> 📄 Prefer one long scroll? The entire package is also available as a single file: **[`FULL-DOCUMENTATION.md`](FULL-DOCUMENTATION.md)**
+> 📄 Prefer one long scroll? The entire package is also available as a single file: **[`FULL-DOCUMENTATION.md`](FULL-DOCUMENTATION.md)** *(auto-generated from `docs/` by [`scripts/build_full_documentation.py`](scripts/build_full_documentation.py) — always in sync, never hand-edited, enforced by CI)*
 
 ---
 
@@ -157,7 +157,11 @@ cd DSA-3-PROJECT-
 DSA-3-PROJECT-/
 ├── README.md                             ← you are here
 ├── LICENSE                               ← academic-use license
-├── FULL-DOCUMENTATION.md                 ← single-file version of everything below
+├── FULL-DOCUMENTATION.md                 ← auto-generated, do not hand-edit
+├── scripts/
+│   └── build_full_documentation.py       ← regenerates FULL-DOCUMENTATION.md
+├── .github/workflows/
+│   └── docs-check.yml                    ← CI: sync check + link check
 ├── ABSTRACT/
 │   ├── README.md                         ← team, roll numbers, guide, summary
 │   └── DSA-3 Project Abstract.pdf        ← officially submitted abstract

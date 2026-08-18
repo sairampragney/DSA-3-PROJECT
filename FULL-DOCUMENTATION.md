@@ -1,29 +1,8 @@
 # Résumé–Job Matching & Talent-Marketplace Engine
-## Full Engineering Documentation Package
+## Full Engineering Documentation Package (single-file view)
 
-**Course alignment:** DSA-3 (25CS2103E), KLBCH — Odd Sem 2026-27
-**Constraint inherited from course engine rules:** `java.util.*` (or any language's built-in collection/algorithm library) is forbidden inside the core engine. Every data structure — hash table, trie, heap, union-find, graph — and every algorithm — string matching, DP, max-flow, NP-hard approximation, randomized primitive — must be hand-built. This mirrors the TextHack constraint from the course handout and is treated as a hard engineering constraint throughout this document, not a suggestion.
-
-**Document status:** v1.0 — engineering-lead sign-off draft
-**Audience:** AI coding agent / engineering team implementing the system, course project graders
-
----
-
-## Table of Contents
-
-1. System Overview
-2. Data Model & Normalization
-3. Matching & Scoring
-4. Scheduling / Allocation Optimization
-5. Minimum Skill Set Calculation
-6. Data Pipeline & Indexing
-7. API & Service Contracts
-8. Security, Privacy & Compliance
-9. Deployment Architecture
-10. Operational Considerations
-11. Example Schemas, Workflows & Pseudocode
-12. Documentation Artifacts (reference, dictionary, glossary, onboarding)
-13. Phasing: MVP → Enhancements
+> Auto-generated from `docs/*.md` by `scripts/build_full_documentation.py`.
+> Do not hand-edit this file directly — edit the relevant file under `docs/` and regenerate.
 
 ---
 
@@ -109,6 +88,8 @@
 | Allocation/Optimization Service | Assign candidates to roles under constraints | Bipartite matching (Hungarian/Hopcroft–Karp), max-flow/min-cost-flow |
 | Minimum-Skill-Set Service | Derive minimal skill set to staff a team | Weighted set-cover approximation, bitmask DP for small n |
 | Fairness/Audit Service | Log every scoring decision with feature attribution | Deterministic replay, no ML black box without logged features |
+
+---
 
 ---
 
@@ -222,6 +203,8 @@ Modeled as a **DAG** (a skill can specialize more than one parent — e.g., "PyS
 
 ---
 
+---
+
 ## 3. Matching and Scoring
 
 ### 3.1 Candidate–Job Fit Scoring Model
@@ -261,6 +244,8 @@ Weights are **calibrated**, not hand-guessed at production time: fit via logisti
 - **Outcome monitoring, not just input scrubbing**: a fairness dashboard tracks selection-rate ratios across legally-permitted proxy cohorts over time on a rolling window and alerts Talent-Ops if a disparity threshold is crossed — this catches disparate impact that input scrubbing alone cannot.
 - **Human-in-the-loop override**: recruiters can see the top-K explanation ("matched on: React (exact), 4 yrs > 3 yr requirement, semantic similarity 0.81") and can flag a ranking for review; flags feed back into calibration.
 - **No fully-automated adverse action**: the system produces ranked shortlists, not accept/reject decisions — a human always makes the final call, which is both a fairness and (in many jurisdictions) a legal requirement for automated hiring tools.
+
+---
 
 ---
 
@@ -307,6 +292,8 @@ Where both sides have preferences and the marketplace needs a **stable** (not ju
 
 ---
 
+---
+
 ## 5. Minimum Skill Set Calculation
 
 ### 5.1 Problem
@@ -323,6 +310,8 @@ This is exactly the classic **Set Cover** problem (NP-hard — Module-5 of the c
 
 - **Partial staffing**: if full coverage of `S` is infeasible with the current pool, the algorithm falls back to **maximum-coverage-under-a-budget** (a matroid/greedy submodular-maximization variant of set cover — same greedy loop, but terminate at `budget` candidates instead of "cover everything"), reporting the residual uncovered skill set explicitly so Talent-Ops can source externally or retrain existing staff.
 - **Cascading requirements**: some skills have prerequisite chains in the ontology (e.g., "Kubernetes" implicitly benefits from "Docker" + "Networking basics"). When computing minimum coverage, the DP/greedy uses the ontology-propagated skill credit from Section 2.3/3.2 — so a candidate with the parent skill contributes partial (discounted) coverage toward a child requirement, and the algorithm prefers combinations that fully cover cascading chains over combinations that leave a chain half-satisfied (implemented as a coverage-completeness bonus term in the greedy's selection key, not a hard rule, to avoid infeasibility).
+
+---
 
 ---
 
@@ -358,6 +347,8 @@ Pipeline stages: `raw upload → text extraction → language detection → fiel
 - **Sharding**: inverted index and embedding index sharded by a **skill-hash range** (so a query for a given required-skill set touches a bounded number of shards) with a **résumé-ID hash** secondary sharding for the raw document store, replicated across ≥3 nodes for availability.
 - **Replication**: read replicas for the query-serving path (scoring/retrieval is read-heavy); writes go through a single-leader path per shard with async replication to read replicas, acceptable given eventual consistency is fine for "résumé searchable within 5 minutes" (Sec 6.4).
 - **Hand-built vs. vetted-library boundary**: per the course constraint, the *core algorithmic engine* (inverted index construction/query, string matching, DP, flow, set-cover, hashing) must be hand-built with no `java.util.*`-equivalent standard collections. Infrastructure-layer concerns that are not the pedagogical target of the course — the underlying key-value storage engine, network/replication protocol, TLS — are appropriately delegated to vetted infrastructure (a document/graph DB, a message queue), matching the course's own framing ("java.util.* forbidden **inside the engine**" — i.e., the algorithmic core, not the surrounding platform).
+
+---
 
 ---
 
@@ -422,6 +413,8 @@ Response 200:
 
 ---
 
+---
+
 ## 8. Security, Privacy, and Compliance
 
 ### 8.1 Data Retention
@@ -457,6 +450,8 @@ This system is designed so its **core algorithmic engine** maps directly onto th
 
 ---
 
+---
+
 ## 9. Deployment Architecture
 
 ### 9.1 Tech Stack Recommendation
@@ -484,6 +479,8 @@ This system is designed so its **core algorithmic engine** maps directly onto th
 
 ---
 
+---
+
 ## 10. Operational Considerations
 
 ### 10.1 Monitoring & SLAs
@@ -507,6 +504,8 @@ This system is designed so its **core algorithmic engine** maps directly onto th
 
 - Ontology changes (skill merges/splits) run through a **versioned migration script** that re-maps affected `canonical_skill_id`s across `Resume`, `JobPosting`, and the propagation-distance table, with a dry-run diff report reviewed before applying to production.
 - Index-schema changes use a **dual-write + backfill + cutover** pattern (write to both old and new index during migration, backfill history, switch reads once backfill completes, decommission old index) to avoid downtime.
+
+---
 
 ---
 
@@ -737,6 +736,8 @@ function greedy_set_cover(skills_universe, candidates, cost_fn):
 
 ---
 
+---
+
 ## 12. Documentation Artifacts
 
 ### 12.1 API Reference
@@ -778,6 +779,8 @@ See Section 7 for the endpoint contracts; a full OpenAPI/Swagger spec should be 
 - The algorithmic core (Sec.11.4) must remain free of standard-library collection/algorithm calls — see Sec.6.5's hand-built-vs-infra boundary before adding any dependency.
 - Every new/changed scoring feature requires: (1) a unit test with a known-answer fixture, (2) a fairness-regression run (Sec.9.3/10.2), (3) an update to the Data Dictionary (Sec.12.2) and API reference if it appears in `explanation`.
 - Local dev environment: run the fixture dataset from Sec.11.1–11.2 through the full pipeline (Sec.11.5) as the first smoke test.
+
+---
 
 ---
 
@@ -826,6 +829,10 @@ Deliverables:
 - A/B testing of scoring-weight changes behind the canary pipeline.
 - Parallel-algorithm optimizations (Module-6: parallel prefix-sum for feature aggregation, parallel sort for large ranking batches) as data volume grows past single-node throughput.
 - Migration tooling maturity (Sec.10.3) exercised on real ontology-evolution events.
+
+---
+
+*End of document.*
 
 ---
 

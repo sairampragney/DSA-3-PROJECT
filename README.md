@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧭 Résumé–Job Matching & Talent-Marketplace Engine
+# 🧭 Resume–Job Matching & Talent-Marketplace Engine
 
 **A DSA-3 semester project that is also a real, production-shaped system design.**
 
